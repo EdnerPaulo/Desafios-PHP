@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salário</title>
     <style>
-
-        body {
+   body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             text-align: center;
@@ -27,89 +26,88 @@
         }
 
         input {
-            padding: 5px;
-            margin: 5px;
-            width: 100px;
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
             text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         input[type="submit"] {
             background-color: #28a745;
             color: white;
             border: none;
-            padding: 8px;
-            width: 100%;
+            padding: 10px;
             cursor: pointer;
             border-radius: 5px;
+            font-size: 16px;
         }
 
         input[type="submit"]:hover {
             background-color: #218838;
         }
 
-     
-        /* Estilo para a caixa dividida em 4 partes */
+        /* Alinhando os resultados um abaixo do outro */
         .caixa {
-            display: flex;
-            width: 200px;
+            display: block;
+            width: 300px;
             margin: 20px auto;
             background-color: #fff;
             border: 2px solid #ccc;
             border-radius: 10px;
+            text-align: center;
+            padding: 15px;
         }
 
         .caixa div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-left: 80px ;
             font-size: 18px;
             font-weight: bold;
             color: #333;
-            height: 50px;
+            padding: 10px 0;
         }   
+
         .texto {
-            display: flex;
+            display: block;
             background: white;
             padding: 20px;
             border-radius: 10px;
             width: 300px;
-            margin: auto;
-            margin-top: 10px;
-
+            margin: 10px auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        
-        h3{
-            padding: 5px;
-            margin: 5px;
-            width: 100px;
             text-align: center;
         }
-        }     
+
+        .texto h3 {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $valor = $_GET['salario']?? 0;
-        $minimo = 1518.00;
-        $quantidade = intval( $valor / $minimo);
-        $dinheiro =$valor-( $quantidade * $minimo);
-
+        $valor = $_GET['numero']?? 1;
+        $quadrada = sqrt($valor);
+        $cubica = $valor ** (1/3);
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
-            <label for="salario">Informe seu salário</label>
-            <input type="number" name="salario" value="<?=$valor?>" step="any"><br/>
+            <label for="numero">Informe seu Número</label><br/>
+            <input type="number" name="numero" value="<?=$valor?>"><br/>
          
-            <input type="submit" value="Calcular">      
-        </form>
-        <?="Considerando  o salário minimo de R$ ",number_format($minimo,2,',','.')?>
-        
+            <input type="submit" value="Calcular Raizes">      
+        </form>       
     </div>
-    <div class="texto"><?php
-    echo"<h3>Resultado Final</h3>"; 
-    echo"<br/> Quem recebe um salário de R$". number_format($valor, 2, ',', '.')." ganha $quantidade salario minimo e sobra + R$ $dinheiro." 
-    ?></div>
+            <div class="texto">
+                <?php
+                    echo"<h3>Resultado Final</h3>"; 
+                    echo"<p>Analisando o  número $valor, temos:</p>"; 
+                    echo"<br/><ul> ";
+                    echo"<br/><li>A raiz quadrada é".number_format($quadrada,2,",",".")."</li> "; 
+                    echo"<br/><li>A raiz cubica é ".number_format($cubica,2,",",".")."</li> "; 
+                    echo"<br/></ul> " 
+                ?>
+            </div>
     </div>
     </div>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salário</title>
+    <title>Divisão</title>
     <style>
 
         body {
@@ -47,10 +47,18 @@
             background-color: #218838;
         }
 
-     
+        .resultado {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
         /* Estilo para a caixa dividida em 4 partes */
         .caixa {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0;
             width: 200px;
             margin: 20px auto;
             background-color: #fff;
@@ -62,54 +70,48 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-left: 80px ;
             font-size: 18px;
             font-weight: bold;
             color: #333;
+            border: 1px solid #ddd;
             height: 50px;
-        }   
-        .texto {
-            display: flex;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            margin: auto;
-            margin-top: 10px;
-
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        
-        h3{
-            padding: 5px;
-            margin: 5px;
-            width: 100px;
-            text-align: center;
         }
-        }     
+
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $valor = $_GET['salario']?? 0;
-        $minimo = 1518.00;
-        $quantidade = intval( $valor / $minimo);
-        $dinheiro =$valor-( $quantidade * $minimo);
-
+        $valor1 = $_GET['valor1']?? 0;
+        $peso1 = $_GET['peso1']?? 0; 
+        $valor2 = $_GET['valor2']?? 0;
+        $peso2 = $_GET['peso2']?? 0; 
+        $media = ($valor1 + $valor2) / 2;
+        $mediaPonderada = ($peso1 + $peso2) != 0 ? (($valor1 * $peso1) + ($valor2 * $peso2)) / ($peso1 + $peso2) : 0;
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
-            <label for="salario">Informe seu salário</label>
-            <input type="number" name="salario" value="<?=$valor?>" step="any"><br/>
-         
-            <input type="submit" value="Calcular">      
+            <label for="valor1">1º Valor:</label>
+            <input type="number" name="valor1" value="<?=$valor1?>"><br/>
+            <label for="peso1">1º Peso:</label>
+            <input type="number" name="peso1"value="<?=$peso1?>"><br/>  
+            <label for="valor2">2º Valor:</label>
+            <input type="number" name="valor2" value="<?=$valor2?>"><br/>
+            <label for="peso2">2º Peso:</label>
+            <input type="number" name="peso2"value="<?=$peso2?>"><br/>  
+            <input type="submit" value="Calcular Medias">      
         </form>
-        <?="Considerando  o salário minimo de R$ ",number_format($minimo,2,',','.')?>
-        
+        <div class="caixa">
+        <?php
+            echo"<h3>Resultado Final</h3>"; 
+            echo"<p>Analisando os valores $valor1 e $valor2, temos:</p>"; 
+            echo"<br/><ul> ";
+            echo"<br/><li>A media Aritmética Simples entre os valores é ".number_format($media,2,",",".")."</li> "; 
+            echo"<br/><li>A media Aritmética Ponderada com peso $peso1 e $peso2 é ".number_format($mediaPonderada,2,",",".")."</li> "; 
+            echo"<br/></ul> " 
+        ?>
+    
+    
     </div>
-    <div class="texto"><?php
-    echo"<h3>Resultado Final</h3>"; 
-    echo"<br/> Quem recebe um salário de R$". number_format($valor, 2, ',', '.')." ganha $quantidade salario minimo e sobra + R$ $dinheiro." 
-    ?></div>
     </div>
     </div>
 </body>
