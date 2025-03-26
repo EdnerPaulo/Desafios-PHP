@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo de Médias</title>
+    <title>Reajuste de preços</title>
     <style>
 
         body {
@@ -90,46 +90,29 @@
         h3 {
             margin-top: 0;
         }
-        ul{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
+       
 
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $valor1 = $_GET['valor1']?? 0;
-        $peso1 = $_GET['peso1']?? 0; 
-        $valor2 = $_GET['valor2']?? 0;
-        $peso2 = $_GET['peso2']?? 0; 
-        $media = ($valor1 + $valor2) / 2;
-        $mediaPonderada = ($peso1 + $peso2) != 0 ? (($valor1 * $peso1) + ($valor2 * $peso2)) / ($peso1 + $peso2) : 0;
+        $preco_prod = $_GET['preco_prod']?? null;
+        $porcentual = $_GET['percentual'] ?? null;
+              
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
-            <label for="valor1">1º Valor:</label>
-            <input type="number" name="valor1" value="<?=$valor1?>"><br/>
-            <label for="peso1">1º Peso:</label>
-            <input type="number" name="peso1"value="<?=$peso1?>"><br/>  
-            <label for="valor2">2º Valor:</label>
-            <input type="number" name="valor2" value="<?=$valor2?>"><br/>
-            <label for="peso2">2º Peso:</label>
-            <input type="number" name="peso2"value="<?=$peso2?>"><br/>  
-            <input type="submit" value="Calcular Medias">      
+            <label for="preco_prod">Preço do Produto :</label>
+            <input type="number" name="preco_prod" value="<?=$preco_prod?>"><br/>
+            <label for="porcentual">Qual será o percentual de reajuste?<?=$porcentual?></label>
+            <input type="number" name="porcentual"value="<?=$porcentual?>"><br/>  
+            
+            <input type="submit" value="Reajustar?">      
         </form>
         <div class="caixa">
         <?php
-            echo"<h3>Resultado Final</h3>"; 
-            echo"<p>Analisando os valores $valor1 e $valor2, temos:</p>"; 
-            echo"<br/><ul> ";
-            echo"<br/><li>A media Aritmética Simples entre os valores é ".number_format($media,2,",",".")."</li> "; 
-            echo"<br/><li>A media Aritmética Ponderada com peso $peso1 e $peso2 é ".number_format($mediaPonderada,2,",",".")."</li> "; 
-            echo"<br/></ul> " 
+            echo"<h3>Resultado</h3>"; 
+            echo"<p> Desculpe pelo transtorno vamos atualizar em breve:</p>"; 
         ?>
     
     

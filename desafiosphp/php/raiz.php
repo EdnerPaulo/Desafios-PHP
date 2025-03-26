@@ -101,9 +101,9 @@
             <div class="texto">
                 <?php
                     echo"<h3>Resultado Final</h3>"; 
-                    echo"<p>Analisando o  número $valor, temos:</p>"; 
+                    echo"<p>Analisando o  número $valor, temos: </p>"; 
                     echo"<br/><ul> ";
-                    echo"<br/><li>A raiz quadrada é".number_format($quadrada,2,",",".")."</li> "; 
+                    echo"<br/><li>A raiz quadrada é ".number_format($quadrada,2,",",".")."</li> "; 
                     echo"<br/><li>A raiz cubica é ".number_format($cubica,2,",",".")."</li> "; 
                     echo"<br/></ul> " 
                 ?>

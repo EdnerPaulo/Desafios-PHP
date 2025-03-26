@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo de Médias</title>
+    <title>Idades</title>
     <style>
 
         body {
@@ -90,46 +90,32 @@
         h3 {
             margin-top: 0;
         }
-        ul{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
+       
 
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $valor1 = $_GET['valor1']?? 0;
-        $peso1 = $_GET['peso1']?? 0; 
-        $valor2 = $_GET['valor2']?? 0;
-        $peso2 = $_GET['peso2']?? 0; 
-        $media = ($valor1 + $valor2) / 2;
-        $mediaPonderada = ($peso1 + $peso2) != 0 ? (($valor1 * $peso1) + ($valor2 * $peso2)) / ($peso1 + $peso2) : 0;
+        $ano_nasc = $_GET['ano_nasc']?? null;
+        $ano_atual = $_GET['ano_atual'] ?? null;
+        $usar_ano_atual = $_GET['usar_ano_atual'] ??date('Y');
+
+       
+        $idade = $ano_atual - $ano_nasc;
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
-            <label for="valor1">1º Valor:</label>
-            <input type="number" name="valor1" value="<?=$valor1?>"><br/>
-            <label for="peso1">1º Peso:</label>
-            <input type="number" name="peso1"value="<?=$peso1?>"><br/>  
-            <label for="valor2">2º Valor:</label>
-            <input type="number" name="valor2" value="<?=$valor2?>"><br/>
-            <label for="peso2">2º Peso:</label>
-            <input type="number" name="peso2"value="<?=$peso2?>"><br/>  
-            <input type="submit" value="Calcular Medias">      
+            <label for="ano_nasc">Em que ano você nasceu :</label>
+            <input type="number" name="ano_nasc" value="<?=$ano_nasc?>"><br/>
+            <label for="ano_atual">Quer saber sua idade em que ano?(Atualmente estamos em <?=$usar_ano_atual?>)</label>
+            <input type="number" name="ano_atual"value="<?=$ano_atual?>"><br/>  
+            
+            <input type="submit" value="Qual será minha idade?">      
         </form>
         <div class="caixa">
         <?php
-            echo"<h3>Resultado Final</h3>"; 
-            echo"<p>Analisando os valores $valor1 e $valor2, temos:</p>"; 
-            echo"<br/><ul> ";
-            echo"<br/><li>A media Aritmética Simples entre os valores é ".number_format($media,2,",",".")."</li> "; 
-            echo"<br/><li>A media Aritmética Ponderada com peso $peso1 e $peso2 é ".number_format($mediaPonderada,2,",",".")."</li> "; 
-            echo"<br/></ul> " 
+            echo"<h3>Resultado</h3>"; 
+            echo"<p>Quem nasceu em $ano_nasc vai ter $idade anos em $ano_atual :</p>"; 
         ?>
     
     
