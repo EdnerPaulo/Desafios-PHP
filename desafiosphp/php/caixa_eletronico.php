@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo de Médias</title>
+    <title>Caixa Eletronico</title>
     <style>
 
         body {
@@ -90,51 +90,61 @@
         h3 {
             margin-top: 0;
         }
-        ul{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
+       
 
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $valor1 = $_GET['valor1']?? null;
-        $peso1 = $_GET['peso1']?? null; 
-        $valor2 = $_GET['valor2']?? null;
-        $peso2 = $_GET['peso2']?? null; 
-        $media = ($valor1 + $valor2) / 2;
-        $mediaPonderada = ($peso1 + $peso2) != 0 ? (($valor1 * $peso1) + ($valor2 * $peso2)) / ($peso1 + $peso2) : 0;
+            $valor = $_GET['$valor'] ?? null;
+            $nota100 = 0;
+            $nota50 =  0;
+            $nota10 = 0;
+            $nota5 = 0;
+            $nota2 = 0;
+
+            if ($valor > 0 ) {
+                $nota100 = floor($valor / 100);
+                $valor %= 100;
+                $nota50 = floor($valor / 50);
+                $valor %= 50;
+                $nota10 = floor($valor / 10);
+                $valor %= 10;
+                $nota5 = floor($valor / 5);
+                $valor %= 5;
+                $nota2 = floor($valor / 2);
+            }
         ?>
+        <h2>Totalizando Tudo</h2>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
-            <label for="valor1">1º Valor:</label>
-            <input type="number" name="valor1" value="<?=$valor1?>"><br/>
-            <label for="peso1">1º Peso:</label>
-            <input type="number" name="peso1"value="<?=$peso1?>"><br/>  
-            <label for="valor2">2º Valor:</label>
-            <input type="number" name="valor2" value="<?=$valor2?>"><br/>
-            <label for="peso2">2º Peso:</label>
-            <input type="number" name="peso2"value="<?=$peso2?>"><br/>  
-            <input type="submit" value="Calcular Medias">      
+            <label for="valor">Qual valor deseja sacar?(R$)*<?=$valor?></label>
+            <input type="number" name="$valor" value="<?=$valor?>"><br/>          
+            <input type="submit" value="Calcular">      
         </form>
         <div class="caixa">
-        <?php
-            echo"<h3>Resultado Final</h3>"; 
-            echo"<p>Analisando os valores $valor1 e $valor2, temos:</p>"; 
-            echo"<br/><ul> ";
-            echo"<br/><li>A media Aritmética Simples entre os valores é ".number_format($media,2,",",".")."</li> "; 
-            echo"<br/><li>A media Aritmética Ponderada com peso $peso1 e $peso2 é ".number_format($mediaPonderada,2,",",".")."</li> "; 
-            echo"<br/></ul> " 
-        ?>
-    
-    
-    </div>
-    </div>
+            <?php
+                 echo "<h3>Totalizando Tudo</h3>"; 
+                 echo "<p>Analisando o valor que você digitou, $valor ";
+                 echo "<br/><ul>";
+                 if ($nota100 > 0) {
+                     echo "<li><img src='nota100.png' alt='Nota de R$100'> $nota100 notas de R$100</li> ";
+                 }
+                 if ($nota50 > 0) {
+                     echo "<li><img src='nota50.png' alt='Nota de R$50'> $nota50 notas de R$50</li> ";
+                 }
+                 if ($nota10 > 0) {
+                     echo "<li><img src='nota10.png' alt='Nota de R$10'> $nota10 notas de R$10</li> ";
+                 }
+                 if ($nota5 > 0) {
+                     echo "<li><img src='nota5.png' alt='Nota de R$5'> $nota5 notas de R$5</li> ";
+                 }
+                 if ($nota2 > 0) {
+                     echo "<li><img src='nota2.png' alt='Nota de R$2'> $nota2 notas de R$2</li> ";
+                 }
+                 echo "<br/></ul>"  
+            ?>   
+        </div>
     </div>
 </body>
 </html>

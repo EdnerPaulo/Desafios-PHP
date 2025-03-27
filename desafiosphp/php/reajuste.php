@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reajuste de preços</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -60,7 +59,6 @@
             margin-top: 10px;
         }
 
-      
         .caixa {
             display: flex;
             flex-direction: column;
@@ -90,34 +88,39 @@
         h3 {
             margin-top: 0;
         }
-       
-
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $preco_prod = $_GET['preco_prod']?? null;
-        $porcentual = $_GET['percentual'] ?? null;
-              
+            $preco_prod = $_GET['preco_prod'] ?? 0;
+            $porcentual = $_GET['porcentual'] ?? 0;
+            $valor_porcento = ($preco_prod / 100) * $porcentual;
+            $valor_total = $preco_prod + $valor_porcento;
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
             <label for="preco_prod">Preço do Produto :</label>
             <input type="number" name="preco_prod" value="<?=$preco_prod?>"><br/>
-            <label for="porcentual">Qual será o percentual de reajuste?<?=$porcentual?></label>
-            <input type="number" name="porcentual"value="<?=$porcentual?>"><br/>  
-            
-            <input type="submit" value="Reajustar?">      
+            <label for="porcentual">Qual será o porcentual de reajuste?</label>
+            <input type="range" name="porcentual" min="0" max="100" value="<?=$porcentual?>" id="porcentual">
+            <span id="porcentual-value"><?=$porcentual?>%</span>
+            <br/>  
+            <input type="submit" value="Reajustar?">    
         </form>
+       
+        <script>
+            document.getElementById('porcentual').oninput = function() {
+                var porcentual = this.value;
+                var preco_prod = document.getElementsByName('preco_prod')[0].value;
+                var valor_total = parseFloat(preco_prod) + (preco_prod / 100) * porcentual;
+                document.getElementById('porcentual-value').innerHTML = porcentual + '%';
+                document.getElementById('valor-total').innerHTML = 'Valor total: ' + valor_total.toFixed(2);
+            }
+        </script>
         <div class="caixa">
-        <?php
-            echo"<h3>Resultado</h3>"; 
-            echo"<p> Desculpe pelo transtorno vamos atualizar em breve:</p>"; 
-        ?>
-    
-    
-    </div>
-    </div>
+            <h3>Resultado</h3>
+            <p>O produto que custa <?=number_format($preco_prod, 2, ",", ".")?>, com <?=$porcentual?>% de aumento vai passar a custar <?=number_format($valor_total, 2, ",", ".")?> a partir de agora.</p>
+        </div>
     </div>
 </body>
 </html>

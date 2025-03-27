@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo de Médias</title>
+    <title>Calculadora de Tempo</title>
     <style>
 
         body {
@@ -90,51 +90,40 @@
         h3 {
             margin-top: 0;
         }
-        ul{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
+       
 
     </style>
 </head>
 <body>
     <div class="container">
         <?php 
-        $valor1 = $_GET['valor1']?? null;
-        $peso1 = $_GET['peso1']?? null; 
-        $valor2 = $_GET['valor2']?? null;
-        $peso2 = $_GET['peso2']?? null; 
-        $media = ($valor1 + $valor2) / 2;
-        $mediaPonderada = ($peso1 + $peso2) != 0 ? (($valor1 * $peso1) + ($valor2 * $peso2)) / ($peso1 + $peso2) : 0;
+            $segundos = $_GET['segundos'] ?? 0;
+            $mes = floor($segundos / (30 * 24 * 60 * 60));
+            $semanas = floor(($segundos % (30 * 24 * 60 * 60)) / (7 * 24 * 60 * 60));
+            $dias = floor(($segundos % (7 * 24 * 60 * 60)) / (24 * 60 * 60));
+            $horas = floor(($segundos % (24 * 60 * 60)) / (60 * 60));
+            $minutos = floor(($segundos % (60 * 60)) / 60);
+            $segundosRestantes = $segundos % 60;
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
-            <label for="valor1">1º Valor:</label>
-            <input type="number" name="valor1" value="<?=$valor1?>"><br/>
-            <label for="peso1">1º Peso:</label>
-            <input type="number" name="peso1"value="<?=$peso1?>"><br/>  
-            <label for="valor2">2º Valor:</label>
-            <input type="number" name="valor2" value="<?=$valor2?>"><br/>
-            <label for="peso2">2º Peso:</label>
-            <input type="number" name="peso2"value="<?=$peso2?>"><br/>  
-            <input type="submit" value="Calcular Medias">      
+            <label for="segundos">Qual o total de segundos ?</label>
+            <input type="number" name="segundos" value="<?=$segundos?>"><br/>          
+            <input type="submit" value="Calcular">      
         </form>
         <div class="caixa">
-        <?php
-            echo"<h3>Resultado Final</h3>"; 
-            echo"<p>Analisando os valores $valor1 e $valor2, temos:</p>"; 
-            echo"<br/><ul> ";
-            echo"<br/><li>A media Aritmética Simples entre os valores é ".number_format($media,2,",",".")."</li> "; 
-            echo"<br/><li>A media Aritmética Ponderada com peso $peso1 e $peso2 é ".number_format($mediaPonderada,2,",",".")."</li> "; 
-            echo"<br/></ul> " 
-        ?>
-    
-    
-    </div>
-    </div>
+            <?php
+                echo"<h3>Totalizando Tudo</h3>"; 
+                echo"<p>Analisando o valor que você digitou, $segundos  segundo equivalem a um total de :</p>";
+                echo"<br/><ul>";
+                echo"<br/><li>$mes meses </li> "; 
+                echo"<br/><li>$semanas semanas </li> "; 
+                echo"<br/><li>$dias dias   </li> "; 
+                echo"<br/><li>$horas horas </li> "; 
+                echo"<br/><li>$minutos minutos </li> "; 
+                echo"<br/><li>$segundosRestantes segundos </li> "; 
+                echo"<br/></ul>" 
+            ?>   
+        </div>
     </div>
 </body>
 </html>

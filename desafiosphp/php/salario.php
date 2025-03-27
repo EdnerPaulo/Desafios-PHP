@@ -108,7 +108,7 @@
     </div>
     <div class="texto"><?php
     echo"<h3>Resultado Final</h3>"; 
-    echo"<br/> Quem recebe um salário de R$". number_format($valor, 2, ',', '.')." ganha $quantidade salario minimo e sobra + R$ $dinheiro." 
+    echo"<br/> Quem recebe um salário de R$". number_format($valor, 2, ',', '.')." ganha $quantidade salario minimo e sobra + R$ ".number_format($dinheiro, 2, ',', '.')." ." 
     ?></div>
     </div>
     </div>
